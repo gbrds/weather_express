@@ -2,6 +2,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 mx-auto text-center bg-primary mt-5 p-5 rounded">
+                    <% if(error === null){ %>
                     <h1 id="location">
                         <%= city %>
                     </h1>
@@ -19,8 +20,16 @@
                             <label for="city-name">City</label>
                             <input type="text" id="city-name" class="form-control" name="cityname">
                         </div>
-                        <input class="btn btn-grey" type="submit" value="Save Changes">
+                        <input class="btn btn-light" type="submit" value="Save Changes">
                     </form>
+                    <% } else { %>
+                        <div class="alert alert-danger" role="alert">
+                            <%= error %>
+                        </div>
+                        <a href="/" class="btn btn-secondary text-white" role="button">
+                            Try Again
+                        </a>
+                        <% } %>
                 </div>
             </div>
         </div>

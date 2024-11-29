@@ -28,7 +28,8 @@ const getweatherData = (city) => {
             const result = {
                 description: description,
                 city: city,
-                temp: temp
+                temp: temp,
+                error: null
             }
             resolve(result)
         })
@@ -49,6 +50,11 @@ app.all('/', (req, res) => {
     getweatherData(city)
     .then((data) => {
         res.render('index', data)
+    })
+    .catch(error =>  {
+        res.render('index', {
+            error: 'Problem with getting data, try again...'
+        })
     })
 })
 
