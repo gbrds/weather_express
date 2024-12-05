@@ -40,8 +40,21 @@ const getweatherData = (city) => {
 }
 
 app.all('/', (req, res) => {
-    let city
-    if(req.method == 'GET'){
+    let city = req.method === 'GET' ? 'tartu' : (req.body.cityname ? req.body.cityname.trim() : '')
+    if(city.length === 0){
+        res.render('index', {error: 'Please enter a valid city name'})
+    } else {
+        getweatherData(city)
+    .then((data) => {
+        res.render('index', data)
+    })
+    .catch(error =>  {
+        res.render('index', {
+            error: 'Problem with getting data, try again...'
+        })
+    })
+    }
+   /* if(req.method == 'GET'){
         city = 'tartu'
     }
     else if (req.method == 'POST'){
@@ -55,7 +68,7 @@ app.all('/', (req, res) => {
         res.render('index', {
             error: 'Problem with getting data, try again...'
         })
-    })
+    }) */
 })
 
 app.listen(3002)
